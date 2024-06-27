@@ -1,3 +1,5 @@
+import { Resend } from 'resend';
+
 const handleRegister = (req, res, db, bcrypt) => {
   const { email, name, password } = req.body;
   if (!email || !name || !password) {
@@ -32,6 +34,17 @@ const handleRegister = (req, res, db, bcrypt) => {
     })
     .catch(err => res.status(400).json('unable to register'))
 }
+
+
+const resend = new Resend('re_BApQRRS6_9GauoRvjJCKih91BtuTXdcZR');
+const name = "Erick"
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: 'esanchez2898@outlook.com',
+  subject: 'Hello World',
+  html: `<p>Congrats ${name} on sending your <strong>first email</strong>!</p>`
+});
+
 
 module.exports = {
   handleRegister: handleRegister
