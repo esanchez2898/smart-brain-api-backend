@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+const { Resend } = require('resend');
 
 const handleRegister = (req, res, db, bcrypt) => {
   const { email, name, password } = req.body;
