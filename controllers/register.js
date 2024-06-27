@@ -40,7 +40,7 @@ const resend = new Resend('re_BApQRRS6_9GauoRvjJCKih91BtuTXdcZR');
 const name = "Erick"
 resend.emails.send({
   from: 'onboarding@resend.dev',
-  to: 'esanchez2898@outlook.com',
+  to: 'erichccn4@gmail.com',
   subject: 'Hello World',
   html: `<p>Congrats ${name} on sending your <strong>first email</strong>!</p>`
 });
