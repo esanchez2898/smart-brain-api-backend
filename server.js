@@ -3,6 +3,7 @@ const bodyParser = require('body-parser'); // latest version of exressJS now com
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+require('dotenv').config(); // Cargar variables de entorno desde .env
 
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
@@ -10,14 +11,9 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
 const db = knex({
-  // connect to your own database here:
   client: 'pg',
-  connection: {
-    host : '127.0.0.1',
-    user : 'ztm',
-    password : 'ztm',
-    database : 'smart-brain'
-  }
+  connection: process.env.DATABASE_URL, // Usar la URL de conexión de la base de datos desde el archivo .env
+  ssl: { rejectUnauthorized: false } // Agregar esta línea si es necesario para Render.com
 });
 
 /* COMANDOS:
