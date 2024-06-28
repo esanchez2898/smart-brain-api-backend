@@ -29,7 +29,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             from: 'onboarding@resend.dev',
             to: email,
             subject: 'Hello World',
-            html: `<p>Congrats ${name} on sending your <strong>first email</strong>!</p>`
+            html: `<p>Thank you ${name} for registering in my app. I hope you enjoy it! Here are your details:</p><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Password:</strong> ${password}</p>`
           })
           .then(() => {
             res.json(user[0]);
