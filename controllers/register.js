@@ -13,37 +13,47 @@ const handleRegister = (req, res, db, bcrypt) => {
       hash: hash,
       email: email
     })
-    .into('login')
-    .returning('email')
-    .then(loginEmail => {
-      return trx('users')
-        .returning('*')
-        .insert({
-          email: loginEmail[0].email,
-          name: name,
-          joined: new Date()
-        })
-        .then(user => {
-          // Enviar correo electrónico después de un registro exitoso
-          resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: email,
-            subject: 'Hello World',
-            html: `<p>Thank you ${name} for registering in my app. I hope you enjoy it! Here are your details:</p><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Password:</strong> ${password}</p>`
+      .into('login')
+      .returning('email')
+      .then(loginEmail => {
+        return trx('users')
+          .returning('*')
+          .insert({
+            email: loginEmail[0].email,
+            name: name,
+            joined: new Date()
           })
-          .then(() => {
-            res.json(user[0]);
-          })
-          .catch(error => {
-            console.error('Error sending email:', error);
-            res.status(500).json('Error sending email');
+          .then(user => {
+            // Enviar correo electrónico después de un registro exitoso
+            resend.emails.send({
+              from: 'onboarding@resend.dev',
+              to: email,
+              subject: 'Hello World',
+              html: `<p>Thank you for sign up. 
+
+              With "<strong>smart brain</strong>", you can detect people's faces in pictures by simply providing the image's URL, easy peasy :)
+              
+              
+              Here are your user details:</p>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Password:</strong> ${password}</p>
+                    <br>
+                    <p><strong>¡¡¡We store your password in an encrypted format in our database to ensure its security. Only you know your actual password, keeping it safe and private!!!</strong></p>`
+            })
+              .then(() => {
+                res.json(user[0]);
+              })
+              .catch(error => {
+                console.error('Error sending email:', error);
+                res.status(500).json('Error sending email');
+              });
           });
-        });
-    })
-    .then(trx.commit)
-    .catch(trx.rollback);
+      })
+      .then(trx.commit)
+      .catch(trx.rollback);
   })
-  .catch(err => res.status(400).json('unable to register'));
+    .catch(err => res.status(400).json('unable to register'));
 }
 
 module.exports = {
