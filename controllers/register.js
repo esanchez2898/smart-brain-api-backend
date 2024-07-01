@@ -28,9 +28,10 @@ const handleRegister = (req, res, db, bcrypt) => {
             resend.emails.send({
               from: 'onboarding@resend.dev',
               to: email,
-              subject: 'Thank you ${name} for sign up',
+              subject: `Thank you ${name} for sign up`,
               html: `
-                    With <strong>smart brain</strong>, you can detect people's faces in pictures by simply providing the image's URL, easy peasy :)
+                    With <strong><a href="https://ericksanchez-smart-brain.netlify.app/">smart brain</a></strong>,
+                     you can detect people's faces in pictures by simply providing the image's URL, easy peasy :)
                     <br>              
                     Here are your user details:</p>
                     <br>
