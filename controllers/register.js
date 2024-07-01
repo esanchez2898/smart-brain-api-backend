@@ -28,13 +28,12 @@ const handleRegister = (req, res, db, bcrypt) => {
             resend.emails.send({
               from: 'onboarding@resend.dev',
               to: email,
-              subject: 'Hello World',
-              html: `<p>Thank you for sign up. 
-
-              With "<strong>smart brain</strong>", you can detect people's faces in pictures by simply providing the image's URL, easy peasy :)
-              
-              
-              Here are your user details:</p>
+              subject: 'Thank you ${name} for sign up',
+              html: `
+                    With <strong>smart brain</strong>, you can detect people's faces in pictures by simply providing the image's URL, easy peasy :)
+                    <br>              
+                    Here are your user details:</p>
+                    <br>
                     <p><strong>Name:</strong> ${name}</p>
                     <p><strong>Email:</strong> ${email}</p>
                     <p><strong>Password:</strong> ${password}</p>
